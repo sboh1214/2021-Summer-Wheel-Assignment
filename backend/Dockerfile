@@ -10,7 +10,4 @@ RUN apk add openldap-clients
 
 ENV SPARCS_LDAP_HOST=ldap://ldap.sparcs.org:389
 
-RUN ldapwhoami | true
-RUN ldapwhoami -H ldap://ldap.sparcs.org:389 | true
-
 ENTRYPOINT [ "npm", "start" ]
