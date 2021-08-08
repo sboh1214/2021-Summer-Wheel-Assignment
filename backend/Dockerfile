@@ -6,8 +6,6 @@ RUN npm install
 COPY . .
 
 RUN apk update
-RUN apk add openldap-clients
-
-ENV SPARCS_LDAP_HOST=ldap://ldap.sparcs.org:389
+RUN apk add openldap-clients openldap
 
 ENTRYPOINT [ "npm", "start" ]
