@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains="chat.sboh.dev"
+domains=(chat.sboh.dev)
 rsa_key_size=4096
 data_path="./nginx/certbot"
 email="sboh1214@gmail.com" # Adding a valid address is strongly recommended
