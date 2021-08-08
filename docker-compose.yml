@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     image: postgres:13-alpine
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=platypus
       - POSTGRES_PASSWORD=1234
@@ -20,7 +20,8 @@ services:
       - db
     expose: 
       - 3000
-      - 389
+    ports: 
+      - 389:389
     environment:
       - DB_NAME=chat
       - DB_USERNAME=platypus
@@ -38,7 +39,6 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 389:389
     volumes:
       - ./nginx/certbot/conf:/etc/letsencrypt
       - ./nginx/certbot/www:/var/www/certbot
