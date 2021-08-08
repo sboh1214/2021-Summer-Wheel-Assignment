@@ -1,0 +1,60 @@
+version: "3"
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=platypus
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=chat
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - TZ=Asia/Seoul
+    volumes:
+      - db:/var/lib/postgresql/data/pgdata
+
+  backend:
+    build: 
+      context: ./backend
+    restart: always
+    depends_on:
+      - db
+    expose: 
+      - 3000
+    environment:
+      - DB_NAME=chat
+      - DB_USERNAME=platypus
+      - DB_PASSWORD=1234
+      - DB_HOST=db
+      - PORT=3000
+      - SPARCS_LDAP_HOST=ldap://ldap.sparcs.org:389
+
+  nginx:
+    build: 
+      context: ./nginx
+    restart: "no"
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    image: certbot/certbot:latest
+    restart: always
+    depends_on: 
+      - nginx
+    volumes: 
+      - ./nginx/certbot/conf:/etc/letsencrypt
+      - ./nginx/certbot/www:/var/www/certbot
+    environment:
+      - TZ=Asia/Seoul
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  db:

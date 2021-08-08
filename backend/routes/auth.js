@@ -21,7 +21,7 @@ module.exports = (req, res) => {
     //SPAPCS LDAP DN은 세미나 및 phpldapadmin.sparcs.org 참고
     //alias 대신 /usr/bin/ldapwhoami 바이너리를 직접 실행하기 (alpine linux 사용 위해)
 
-    exec(`/*TODO*/`, async (err, stdout, stderr) => {
+    exec(`/usr/bin/ldapwhoami –x –D uid=${id},ou=People,dc=sparcs,dc=org -w ${password} –H ${process.env.SPARCS_LDAP_HOST}`, async (err, stdout, stderr) => {
         if(err || stdout.length === 0 || stderr.length !== 0){
             res.status(403).json({
                 ok: false,
@@ -34,7 +34,8 @@ module.exports = (req, res) => {
                 //만료 기간은 적당히 (6시간)
                 //토큰과 함께 로그인 성공 알림
                 //jwt 라이브러리 사용
-                /*TODO*/ (err, token) => {
+                /*TODO*/ 
+                jwt.sign(payload, secret, {expiresIn: "6h"}, (err, token) => {
                     if (err) {
                         resolve(null);
                         return;

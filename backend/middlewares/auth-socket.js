@@ -8,7 +8,7 @@ function auth(socket, next) {
         //비밀키는 secret에 있음
         //jwt 라이브러리 이용
 
-        /*TODO*/(err, decoded) => {
+        jwt.verify(socket.handshake.query.token, secret, (err, decoded) => {
             if (err){
                 console.log("Auth error: verify failed");
                 socket.emit('auth_error', {});
