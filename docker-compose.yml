@@ -30,7 +30,7 @@ services:
 
   nginx:
     build: 
-      context: ./nginx
+      context: .
     restart: "no"
     depends_on:
       - backend
