@@ -6,6 +6,6 @@ RUN npm install
 COPY . .
 
 RUN apk update
-RUN apk add openldap-clients openldap
+RUN apk add openldap-clients
 
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT [ "sh", "./entrypoint.sh" ]
