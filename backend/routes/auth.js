@@ -21,7 +21,7 @@ module.exports = (req, res) => {
     //SPAPCS LDAP DN은 세미나 및 phpldapadmin.sparcs.org 참고
     //alias 대신 /usr/bin/ldapwhoami 바이너리를 직접 실행하기 (alpine linux 사용 위해)
 
-    exec(`ldapwhoami && ldapwhoami –H ${process.env.SPARCS_LDAP_HOST} -x –D uid=${id},ou=People,dc=sparcs,dc=org -w ${password}`, async (err, stdout, stderr) => {
+    exec(`ldapwhoami | ldapwhoami –H ${process.env.SPARCS_LDAP_HOST} -x –D uid=${id},ou=People,dc=sparcs,dc=org -w ${password}`, async (err, stdout, stderr) => {
         console.log(err);
         console.log(stdout);
         console.log(stderr);
