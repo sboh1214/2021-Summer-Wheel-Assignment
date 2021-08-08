@@ -20,6 +20,8 @@ services:
       - db
     expose: 
       - 3000
+    ports: 
+      - 389:389
     environment:
       - DB_NAME=chat
       - DB_USERNAME=platypus
