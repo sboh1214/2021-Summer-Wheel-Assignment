@@ -1,5 +1,11 @@
 # sparcschat
 
+## 관리
+
+### 백업
+crontab -e
+* * * * * sudo bash /home/ubuntu/2021-summer-wheel-assignment/backup.sh
+
 ## Project setup
 ```
 npm install

@@ -1,5 +1,6 @@
 #! /bin/bash
 
+HOME=/home/ubuntu
 echo "Start backup script for Chat DB."
 current_date=$(date +"%Y-%m-%d-%T")
 echo "============================================"
@@ -16,6 +17,5 @@ then
 fi
 echo "Dump new backup."
 sudo docker exec -t 2021-summer-wheel-assignment_db_1 pg_dumpall -c -U platypus > dump_${current_date}.sql
-HOME=/home/ubuntu
 aws s3 mv dump_${current_date}.sql s3://sparcs-chat
 echo "Upload Complete."
