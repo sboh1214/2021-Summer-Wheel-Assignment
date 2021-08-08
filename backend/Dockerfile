@@ -8,4 +8,4 @@ COPY . .
 RUN apk update
 RUN apk add openldap-clients
 
-ENTRYPOINT [ "sh", "./entrypoint.sh" ]
+ENTRYPOINT [ "npm", "start" ]
