@@ -34,7 +34,7 @@ Comment.handlers = {
         // data: 프론트 측에서 삭제 요청과 함께 온 데이터. data.id에 삭제 버튼을 클릭한 Comment id 담겨있음
         // name_by_auth: 요청을 보낸 사람의 이름
 
-        const comment = Comment.findOne({where:{id: data.id}});
+        const comment = Comment.findOne({where: {id: data.id}});
         if (name_by_auth !== 'wheel' && name_by_auth !== comment.name) {
             return false;
         }
@@ -42,7 +42,7 @@ Comment.handlers = {
         const where = {where: {
             id: comment.id
           }} //Hint: 5줄 이하, ORM(sequelize)에서 삭제 조건 어떻게 주는지 찾아보기
-        await Comment.destroy({where})
+        await Comment.destroy(where)
             .catch(err => {
                 console.log(err);
             });
