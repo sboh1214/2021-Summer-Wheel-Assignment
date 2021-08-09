@@ -2,6 +2,9 @@
 
 ## 관리
 
+### 구성
+서버에서 80, 443, 389 포트를 개방합니다.
+
 ### 백업
 crontab -e
 * * * * * sudo bash /home/ubuntu/2021-summer-wheel-assignment/backup.sh
