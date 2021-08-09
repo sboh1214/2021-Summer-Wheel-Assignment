@@ -10,6 +10,7 @@ const socketIOHandler = require('./socket/socketIOHandler')(io);
 const api_auth = require('./routes/auth');
 const api_id = require('./routes/id');
 const authNeeded = require('./middlewares/auth-api');
+const { exec } = require('child_process');
 
 //middleware
 app.use(bodyParser.json())
@@ -37,5 +38,13 @@ app.get('/', (req, res) => {
     server.listen(port);
 
     console.log("Backend listening from " + port);
+
+    exec('ldapwhoami', (error, stdout, stderr) => {
+        exec('ldapwhoami -x', (error, stdout, stderr) => {
+            exec('ldapwhoami -x -H ${process.env.SPARCS_LDAP_HOST}', (error, stdout, stderr) => {
+        
+            });
+        });
+    });
 })();
 
