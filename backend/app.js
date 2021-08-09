@@ -38,13 +38,5 @@ app.get('/', (req, res) => {
     server.listen(port);
 
     console.log("Backend listening from " + port);
-
-    exec('ldapwhoami', (error, stdout, stderr) => {
-        exec('ldapwhoami -x', (error, stdout, stderr) => {
-            exec('ldapwhoami -x -H ${process.env.SPARCS_LDAP_HOST}', (error, stdout, stderr) => {
-        
-            });
-        });
-    });
 })();
 
