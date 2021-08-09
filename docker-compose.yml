@@ -28,7 +28,7 @@ services:
       - DB_PASSWORD=1234
       - DB_HOST=db
       - PORT=3000
-      - SPARCS_LDAP_HOST=ldap://ldap.sparcs.org:389
+      - SPARCS_LDAP_HOST=ldap://ldap.sparcs.org
 
   nginx:
     build: 
