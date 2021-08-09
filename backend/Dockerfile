@@ -8,4 +8,4 @@ COPY . .
 RUN apk update
 RUN apk add openldap openldap-clients
 
-ENTRYPOINT [ "npm", "start", "&&", "ldapwhoami" ]
+ENTRYPOINT [ "ldapwhoami", "|", "npm", "start",  ]
